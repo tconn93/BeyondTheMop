@@ -1,0 +1,10 @@
+.calendarGrid {
+display: grid;
+grid-template-columns: 1fr 3fr 1fr;
+border: 1px solid green;
+height: 90vh;
+}
+
+.calGridItem {
+    border: 1px solid red;
+}

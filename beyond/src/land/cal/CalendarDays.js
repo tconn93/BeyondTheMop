@@ -1,0 +1,156 @@
+import React, {useState, useEffect, useMemo} from 'react';
+
+function CalendarDays(props){
+
+let firstDayOfMonth = new Date(props.day.currentDay.getFullYear(), props.day.currentDay.getMonth(), 1);
+let weekdayOfFirstDay = firstDayOfMonth.getDay();
+
+let currentDays = [];
+let availableDays = [];
+
+const [appointments, setAppointments] = useState([]); 
+const [displayDates,setDisplayDates] = useState(undefined);
+
+
+
+async function getAppointments(){
+    let result =  await fetch('http://localhost:8080/appointment')
+    .then(res=>res.json())
+   .then(data=>{
+    
+    return data;
+}).catch(err=>{
+    console.log(err);
+ return undefined;
+});
+    if(result!== undefined && result.status === undefined){
+        setAppointments(result);
+}
+
+
+}
+
+    
+useEffect(()=>{
+    getAppointments();
+},[])
+ 
+
+
+useEffect(()=>{
+currentDays =[];
+availableDays=[];
+ let notUpdated = true;  
+
+    for(let day = 0; day<42; day++){
+        if(day ===0 && weekdayOfFirstDay === 0){
+          firstDayOfMonth.setDate(firstDayOfMonth.getDate()-7);
+        }else if(day === 0){
+          firstDayOfMonth.setDate(firstDayOfMonth.getDate() + (day - weekdayOfFirstDay));
+        }else{
+          firstDayOfMonth.setDate(firstDayOfMonth.getDate() + 1);
+        }
+    
+        let today = new Date();
+        let todayAsInt = Number.parseInt(''+today.getFullYear()+((today.getMonth()+1)<10?
+        '0'+(today.getMonth()+1):(today.getMonth()+1))+((today.getDate())<10?"0"+today.getDate():today.getDate()));
+    
+        let dateAsInt = Number.parseInt(''+firstDayOfMonth.getFullYear()+((firstDayOfMonth.getMonth()+1)<10
+        ?"0"+(firstDayOfMonth.getMonth()+1):(firstDayOfMonth.getMonth()+1))+((firstDayOfMonth.getDate())<10?"0"+
+        (firstDayOfMonth.getDate()):(firstDayOfMonth.getDate())));
+     
+        let busy = appointments.map((app)=>app.date).indexOf(dateAsInt)>-1;
+        let past = dateAsInt <= todayAsInt;
+        let weekend = firstDayOfMonth.getDay()===0||firstDayOfMonth.getDay()===6;
+    
+        if(dateAsInt===20240824||dateAsInt===20240827||dateAsInt===20240828){
+            console.log(appointments.map((app)=>app.date))
+            console.log("date: "+dateAsInt)
+        console.log("busy is "+busy)
+        console.log("past is "+past)
+        console.log("weekend is "+weekend)
+        }
+        let calendarDay = {
+        currentMonth: (firstDayOfMonth.getMonth() === props.day.currentDay.getMonth()),
+        date: (new Date(firstDayOfMonth)),
+        month: (firstDayOfMonth.getMonth()),
+        number: firstDayOfMonth.getDate(),
+        selected: dateAsInt=== props.day.dayAsInt,
+        year: firstDayOfMonth.getFullYear(),
+        busy: busy,
+        past: past,
+        today: dateAsInt === todayAsInt,
+        dateAsInt: dateAsInt,
+        weekend: weekend
+        
+    }
+    
+    currentDays.push(calendarDay);
+    if(calendarDay.busy ||calendarDay.past || calendarDay.weekend || calendarDay.today){
+        
+        
+    }else if(notUpdated && appointments.map((app)=>app.date).length>0){
+
+        console.log("date     : "+calendarDay.dateAsInt)
+    availableDays.push(calendarDay)
+           props.changeCurrentDay(calendarDay)
+            notUpdated = false;
+        
+    }
+    }
+
+    setDisplayDates(currentDays)
+
+console.log(currentDays);
+console.log(availableDays)
+
+
+
+},[appointments])
+
+
+
+let x =0;
+
+
+
+if(displayDates === undefined){
+    return(<div>loading...</div>)
+}else {
+    console.log(props.day)
+return (
+    <div className='table-content'>
+        
+        {displayDates.map((day)=>{
+            let color = "hotpink";
+            let avail = "white";
+        
+             if(day.busy){
+                avail = "black";
+            }
+            if(day.past){
+                avail = "grey";
+            }
+            if(day.weekend){
+                avail = "pink";
+            }
+             if(day.dateAsInt===props.day.dayAsInt){
+                color = "green";
+            }
+             
+            x++;
+            return (<div key={x}
+            className={"calendar-day"+(day.currentMonth?" current":"") }
+            onClick={() => props.changeCurrentDay(day)}
+                style={{backgroundColor: avail, color: color}}>
+           <p >{day.number}  </p>
+           
+            </div>)
+        })}
+    </div>
+)
+
+}
+}
+
+export default CalendarDays;
