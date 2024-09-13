@@ -2,14 +2,19 @@ import React, {useState} from "react";
 import "../HomePage.css";
 import './CalandarPage.css';
 import Calendar from './Calendar'
+import DateUtils from "../../utils/DateUtils";
 
 function CalandarPage(props){
 
 let today = new Date();
 
+let day = DateUtils.getNextWeekkday(today);
+let dayAsInt = DateUtils.getNextWeekkdayAsInt(today);
+console.log(dayAsInt);
+
     const [state,setState] = useState({
-        currentDay: today,
-        dayAsInt: Number.parseInt(''+today.getFullYear()+(today.getMonth()+1<10? '0'+(today.getMonth()+1) : today.getMonth()+1)+(today.getDate()<10? '0'+today.getDate() : today.getDate()),10)
+        currentDay: day,
+        dayAsInt: dayAsInt
     });
     function handleClick(){
         props.setIsBan(true);
@@ -47,7 +52,10 @@ let today = new Date();
             </div>
             <div className="calGridItem">
 
-                <Calendar state={state} setState={(x)=>setState(x)} />
+                <Calendar state={state} 
+                setState={(x)=>setState(x)} 
+                today={dayAsInt} 
+               />
            
             </div>
              

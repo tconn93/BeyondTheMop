@@ -1,6 +1,7 @@
 import React from "react";
 import CalendarDays from "./CalendarDays";
 import "./calendar.css";
+import DateUtils from "../../utils/DateUtils";
 function Calendar(props){
 
     const weekdays = ["Sunday","Monday", "Tuesday", "Wednesday", "Thursday", "Friday","Saturday"];
@@ -14,7 +15,7 @@ function Calendar(props){
             console.log("success")
             let x = {
                 currentDay:day.date,
-                dayAsInt:Number.parseInt(''+day.year+(day.month+1<10? '0'+(day.month+1) : day.month+1)+(day.number<10? '0'+day.number : day.number),10)
+                dayAsInt: DateUtils.getDateAsInt(day.date)
             };
             props.setState(x);
         }
@@ -22,6 +23,7 @@ function Calendar(props){
         
   
     }
+    let canGoBack = props.today > props.state.dayAsInt;
 
     let last =  new Date(props.state.currentDay.getFullYear(), props.state.currentDay.getMonth()-1, props.state.currentDay.getDate());
     let next = new Date(props.state.currentDay.getFullYear(), props.state.currentDay.getMonth()+1, props.state.currentDay.getDate());
@@ -31,16 +33,17 @@ function Calendar(props){
         <button 
         onClick={()=>{props.setState(
             {currentDay:last, 
-            dayAsInt: Number.parseInt(''+last.getFullYear()+(last.getMonth()+1<10?
-            '0'+last.getMonth():last.getMonth())+(last.getDate()<10?'0'+last.getDate():last.getDate()),10)})}} 
+            dayAsInt: DateUtils.getDateAsInt(last)})}} 
         >Previous Month</button>
+
+        
         <h2 >{months[props.state.currentDay.getMonth()]}  {props.state.currentDay.getFullYear()}</h2>  
-        <button oonClick={()=>{props.setState(
+        <button onClick={()=>{props.setState(
             {currentDay:next, 
-            dayAsInt: Number.parseInt(''+next.getFullYear()+(next.getMonth()+1<10?
-            '0'+next.getMonth():next.getMonth())+(next.getDate()<10?'0'+next.getDate():next.getDate()),10)})}} 
+            dayAsInt: DateUtils.getDateAsInt(next)})}} 
         >Next Month</button>
         </span>
+        {props.state.dayAsInt}
         </div>
         <div className="calendar-body">
             <div className="table-header">
@@ -48,7 +51,7 @@ function Calendar(props){
                 return <div key={weekday} className="weekday"><p>{weekday}</p></div>
             })}
             </div>
-            <CalendarDays day={props.state} changeCurrentDay={(day)=>changeCurrentDay(day)}/>
+            <CalendarDays day={props.state} changeCurrentDay={(day)=>changeCurrentDay(day)} today={props.today}/>
         </div>  
     </div>)
 

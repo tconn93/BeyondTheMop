@@ -7,10 +7,10 @@ const [isBan,setIsBan] = useState(true);
 const [email,setEmail] = useState(undefined)
 
 
-// return <CustomerPage email='tyler@gmail.com'/>
+ return <CustomerPage email='tyler@gmail.com'/>
 
-if(isBan) return <BannerPage setIsBan={(x)=>setIsBan(x)} setEmail={(x)=>setEmail(x)}/>
-else return <CustomerPage setIsBan={(x)=>setIsBan(x)} email={email}/>
- ; 
+// if(isBan) return <BannerPage setIsBan={(x)=>setIsBan(x)} setEmail={(x)=>setEmail(x)}/>
+// else return <CustomerPage setIsBan={(x)=>setIsBan(x)} email={email}/>
+//  ; 
 }
 export default HomePage;
