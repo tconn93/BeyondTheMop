@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useMemo} from 'react';
+import React, {useState, useEffect} from 'react';
 
 function CalendarDays(props){
 
@@ -53,11 +53,11 @@ availableDays=[];
     
         let today = new Date();
         let todayAsInt = Number.parseInt(''+today.getFullYear()+((today.getMonth()+1)<10?
-        '0'+(today.getMonth()+1):(today.getMonth()+1))+((today.getDate())<10?"0"+today.getDate():today.getDate()));
+        '0'+(today.getMonth()+1):(today.getMonth()+1))+((today.getDate())<10?"0"+today.getDate():today.getDate()),10);
     
         let dateAsInt = Number.parseInt(''+firstDayOfMonth.getFullYear()+((firstDayOfMonth.getMonth()+1)<10
         ?"0"+(firstDayOfMonth.getMonth()+1):(firstDayOfMonth.getMonth()+1))+((firstDayOfMonth.getDate())<10?"0"+
-        (firstDayOfMonth.getDate()):(firstDayOfMonth.getDate())));
+        (firstDayOfMonth.getDate()):(firstDayOfMonth.getDate())),10);
      
         let busy = appointments.map((app)=>app.date).indexOf(dateAsInt)>-1;
         let past = dateAsInt <= todayAsInt;

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import CalendarDays from "./CalendarDays";
 import "./calendar.css";
 function Calendar(props){
@@ -14,7 +14,7 @@ function Calendar(props){
             console.log("success")
             let x = {
                 currentDay:day.date,
-                dayAsInt:Number.parseInt(''+day.year+(day.month+1<10? '0'+(day.month+1) : day.month+1)+(day.number<10? '0'+day.number : day.number))
+                dayAsInt:Number.parseInt(''+day.year+(day.month+1<10? '0'+(day.month+1) : day.month+1)+(day.number<10? '0'+day.number : day.number),10)
             };
             props.setState(x);
         }
@@ -23,16 +23,23 @@ function Calendar(props){
   
     }
 
+    let last =  new Date(props.state.currentDay.getFullYear(), props.state.currentDay.getMonth()-1, props.state.currentDay.getDate());
+    let next = new Date(props.state.currentDay.getFullYear(), props.state.currentDay.getMonth()+1, props.state.currentDay.getDate());
     return (    <div className="calendar" style={{textAlign:"center"}}>
         <div className="calendar-header" style={{textAlign:"center", border:"solid 10px black"}}>
             <span style={{textAlign:"center", border:"solid 4px red"}}>
-        <button onClick={()=>{props.setState({
-            currentDay: new Date(props.state.currentDay.getFullYear(), props.state.currentDay.getMonth()-1, props.state.currentDay.getDate())
-        })}} >Previous Month</button>
+        <button 
+        onClick={()=>{props.setState(
+            {currentDay:last, 
+            dayAsInt: Number.parseInt(''+last.getFullYear()+(last.getMonth()+1<10?
+            '0'+last.getMonth():last.getMonth())+(last.getDate()<10?'0'+last.getDate():last.getDate()))})}} 
+        >Previous Month</button>
         <h2 >{months[props.state.currentDay.getMonth()]}  {props.state.currentDay.getFullYear()}</h2>  
-        <button onClick={()=>{props.setState({
-            currentDay: new Date(props.state.currentDay.getFullYear(), props.state.currentDay.getMonth()+1, props.state.currentDay.getDate())
-        })}} >Next Month</button>
+        <button oonClick={()=>{props.setState(
+            {currentDay:last, 
+            dayAsInt: Number.parseInt(''+last.getFullYear()+(last.getMonth()+1<10?
+            '0'+last.getMonth():last.getMonth())+(last.getDate()<10?'0'+last.getDate():last.getDate()))})}} 
+        >Next Month</button>
         </span>
         </div>
         <div className="calendar-body">

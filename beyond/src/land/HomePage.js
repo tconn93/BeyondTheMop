@@ -1,6 +1,5 @@
 import React, {useState} from "react";
 import BannerPage from "./banner/BannerPage";
-import CalandarPage from "./cal/CalandarPage";
 import CustomerPage from "./customer/CustomerPage";
 function HomePage() {
 

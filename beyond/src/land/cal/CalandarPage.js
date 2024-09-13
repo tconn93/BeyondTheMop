@@ -3,29 +3,27 @@ import "../HomePage.css";
 import './CalandarPage.css';
 import Calendar from './Calendar'
 
-
-import dayjs from 'dayjs';
 function CalandarPage(props){
 
 let today = new Date();
 
     const [state,setState] = useState({
         currentDay: today,
-        dayAsInt: Number.parseInt(''+today.getFullYear()+(today.getMonth()+1<10? '0'+(today.getMonth()+1) : today.getMonth()+1)+(today.getDate()<10? '0'+today.getDate() : today.getDate()))
+        dayAsInt: Number.parseInt(''+today.getFullYear()+(today.getMonth()+1<10? '0'+(today.getMonth()+1) : today.getMonth()+1)+(today.getDate()<10? '0'+today.getDate() : today.getDate()),10)
     });
     function handleClick(){
         props.setIsBan(true);
     }
 
 
-    function scheduleDeepClean(){
+    // function scheduleDeepClean(){
 
-    }
+    // }
 
 
-    function scheduleBasicClean(){
+    // function scheduleBasicClean(){
 
-    }
+    // }
 
 
    return <div className="page" >

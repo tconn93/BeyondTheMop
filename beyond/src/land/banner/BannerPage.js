@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import "../HomePage.css";
-import BriAvatar from '../../media/output8.jpg';
 import cheetah from '../../media/cheetah.jpg';
 import logo from '../../media/logo.jpg';
 
