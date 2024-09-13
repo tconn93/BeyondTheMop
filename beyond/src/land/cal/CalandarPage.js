@@ -1,8 +1,9 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import "../HomePage.css";
 import './CalandarPage.css';
 import Calendar from './Calendar'
 import DateUtils from "../../utils/DateUtils";
+
 
 function CalandarPage(props){
 
@@ -20,15 +21,34 @@ console.log(dayAsInt);
         props.setIsBan(true);
     }
 
+    useEffect(()=>{
+        let x = undefined;
+        
+        if(state.currentDay.getDay()===0||state.currentDay.getDay()===6 ){
+            x = {
+            currentDay: DateUtils.getNextWeekkday(state.currentDay),
+            dayAsInt: DateUtils.getNextWeekkdayAsInt(state.currentDay)
+           }
+        }
 
-    // function scheduleDeepClean(){
+        if(state.dayAsInt <dayAsInt){
+            x = {
+            currentDay: DateUtils.getNextWeekkday(today),
+            dayAsInt: DateUtils.getNextWeekkdayAsInt(today)
+           }
+        }
 
-    // }
+        if(x!== undefined) setState(x);
+    },[state]);
+
+    function scheduleDeepClean(){
+            console.log('deep clean on '+state.dayAsInt)
+    }
 
 
-    // function scheduleBasicClean(){
-
-    // }
+    function scheduleBasicClean(){
+        console.log('basic clean on '+state.dayAsInt)
+    }
 
 
    return <div className="page" >
@@ -54,7 +74,7 @@ console.log(dayAsInt);
 
                 <Calendar state={state} 
                 setState={(x)=>setState(x)} 
-                today={dayAsInt} 
+                today={DateUtils.getDateAsInt(today)} 
                />
            
             </div>
@@ -66,9 +86,9 @@ console.log(dayAsInt);
 
                 Book:
             <br/>
-                <button >Deep Clean</button>
+                <button onClick={()=>scheduleDeepClean()}>Deep Clean</button>
                 <br/>
-                <button >Basic Clean</button>
+                <button onClick={()=>scheduleBasicClean()}>Basic Clean</button>
             </div>
     </div>
     </div>

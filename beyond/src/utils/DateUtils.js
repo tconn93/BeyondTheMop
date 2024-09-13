@@ -24,5 +24,9 @@ static getNextWeekkday(date){
   
     return DateUtils.getDateAsInt(new Date(date.getFullYear(),date.getMonth(),date.getDate()+add));
 }
+
+static getYearAndMonth(integer){
+    return Math.floor(integer/100);
+}
 }
 export default DateUtils;
