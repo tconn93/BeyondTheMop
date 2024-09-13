@@ -32,13 +32,13 @@ function Calendar(props){
         onClick={()=>{props.setState(
             {currentDay:last, 
             dayAsInt: Number.parseInt(''+last.getFullYear()+(last.getMonth()+1<10?
-            '0'+last.getMonth():last.getMonth())+(last.getDate()<10?'0'+last.getDate():last.getDate()))})}} 
+            '0'+last.getMonth():last.getMonth())+(last.getDate()<10?'0'+last.getDate():last.getDate()),10)})}} 
         >Previous Month</button>
         <h2 >{months[props.state.currentDay.getMonth()]}  {props.state.currentDay.getFullYear()}</h2>  
         <button oonClick={()=>{props.setState(
-            {currentDay:last, 
-            dayAsInt: Number.parseInt(''+last.getFullYear()+(last.getMonth()+1<10?
-            '0'+last.getMonth():last.getMonth())+(last.getDate()<10?'0'+last.getDate():last.getDate()))})}} 
+            {currentDay:next, 
+            dayAsInt: Number.parseInt(''+next.getFullYear()+(next.getMonth()+1<10?
+            '0'+next.getMonth():next.getMonth())+(next.getDate()<10?'0'+next.getDate():next.getDate()),10)})}} 
         >Next Month</button>
         </span>
         </div>
