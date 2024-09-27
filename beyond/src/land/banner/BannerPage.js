@@ -5,7 +5,7 @@ import logo from '../../media/logo.jpg';
 
 function BannerPage(props){
 
-const [text, setText] = useState('email'); 
+const [text, setText] = useState('tyler@gmail.com'); 
 
     function handleClick(){
         console.log("clicked Here 1.")

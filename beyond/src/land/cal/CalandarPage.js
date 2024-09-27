@@ -53,23 +53,11 @@ console.log(dayAsInt);
 
    return <div className="page" >
     <div style={{textAlign:"center"}}>
-    <h2> Howdy {props.user.firstName} {props.user.lastName}!  
+    <h2> Hey {props.user.firstName} {props.user.lastName}! Select a date to book. 
           <button onClick={()=>handleClick()}>back</button></h2>
     </div>
     <div className="calendarGrid">
-            <div className="calGridItem" style={{alignContent:'center',
-                textAlign:'center'}}>
-
-                select
-                <br/>
-                A
-                <br/>
-                Date
-                <br/>
-                to 
-                <br/>
-                Book
-            </div>
+            
             <div className="calGridItem">
 
                 <Calendar state={state} 

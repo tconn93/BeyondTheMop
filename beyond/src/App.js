@@ -1,15 +1,21 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { isMobile } from 'react-device-detect';
 import HomePage from './land/HomePage';
 import './App.css';
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-          <HomePage />
-      </div>
-    );
-  }
+function App(){
+let x = <HomePage />;
+  if(isMobile)
+    {
+      x = <div>
+        <h1>Mobile</h1>
+      </div>;
+    }
+
+    return x;
+
+
+
 }
 
 export default App;

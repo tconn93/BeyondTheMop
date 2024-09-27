@@ -28,22 +28,27 @@ function Calendar(props){
     let next = new Date(props.state.currentDay.getFullYear(), props.state.currentDay.getMonth()+1, props.state.currentDay.getDate());
     return (    <div className="calendar" style={{textAlign:"center"}}>
         <div className="calendar-header" style={{textAlign:"center", border:"solid 10px black"}}>
-            <span style={{textAlign:"center", border:"solid 4px red",margin:'auto'}}>
-        {DateUtils.getYearAndMonth(DateUtils.getDateAsInt(last))>=DateUtils.getYearAndMonth(props.today) &&
+        
+        <div className="calendar-header-item">        {DateUtils.getYearAndMonth(DateUtils.getDateAsInt(last))>=DateUtils.getYearAndMonth(props.today) &&
         <button 
         onClick={()=>{props.setState(
             {currentDay:last, 
             dayAsInt: DateUtils.getDateAsInt(last)})}} 
+            style={{height:'50px'}}
         >Previous Month</button>
             }
-        
+        </div>
+        <div className="calendar-header-item">
         <h2 >{months[props.state.currentDay.getMonth()]}  {props.state.currentDay.getFullYear()}</h2>  
+        </div>
+        <div className="calendar-header-item">
         <button onClick={()=>{props.setState(
             {currentDay:next, 
             dayAsInt: DateUtils.getDateAsInt(next)})}} 
+            style={{height:'50px'}}
         >Next Month</button>
-        </span>
-       
+      
+        </div>
         </div>
         <div className="calendar-body" style={{paddingBottom:"100px"}}>
             <div className="table-header">

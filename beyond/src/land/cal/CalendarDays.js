@@ -6,7 +6,6 @@ let firstDayOfMonth = new Date(props.day.currentDay.getFullYear(), props.day.cur
 let weekdayOfFirstDay = firstDayOfMonth.getDay();
 
 let currentDays = [];
-let availableDays = [];
 
 const [appointments, setAppointments] = useState([]); 
 const [displayDates,setDisplayDates] = useState(undefined);
@@ -38,8 +37,8 @@ useEffect(()=>{
 
 useEffect(()=>{
 currentDays =[];
-availableDays=[];
- let notUpdated = true;  
+
+
 
     for(let day = 0; day<42; day++){
         if(day ===0 && weekdayOfFirstDay === 0){
@@ -123,16 +122,16 @@ return (
             let avail = "white";
         
              if(day.busy){
-                avail = "black";
+                avail = "darkgray";
             }
             if(day.past){
-                avail = "grey";
-            }
-            if(day.weekend){
                 avail = "pink";
             }
+            if(day.weekend){
+                avail = "gray";
+            }
              if(day.selected){
-                avail = "green";
+                avail = "#7FFF00";
             }
              
             x++;
